@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>js Hunting Github</title>
+        <script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    </head>
+    <body>
+        <button id="buttonForName">Click this to see my name</button>
+        <script>
+            // console.log($)
+            // Hunting Github
+            // When we send a request via AJAX, we need to also set up the list of instructions (callback) that will run as soon as the response is received. In this case, we are using an event handling callback that gets triggered on the “response” event. Let’s see this in action:
+            //
+            // We will be using the GitHub API to hunt down online information about yourself. If you navigate to https://api.github.com/users/(your user name) you will see a bunch of JSON data (Remember JSON is just JavaScript Object Notation) that looks like this:
+
+            data = {
+              "login": "Gwickstrom",
+              "id": 23506698,
+              "avatar_url": "https://avatars2.githubusercontent.com/u/23506698?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/Gwickstrom",
+              "html_url": "https://github.com/Gwickstrom",
+              "followers_url": "https://api.github.com/users/Gwickstrom/followers",
+              "following_url": "https://api.github.com/users/Gwickstrom/following{/other_user}",
+              "gists_url": "https://api.github.com/users/Gwickstrom/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/Gwickstrom/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/Gwickstrom/subscriptions",
+              "organizations_url": "https://api.github.com/users/Gwickstrom/orgs",
+              "repos_url": "https://api.github.com/users/Gwickstrom/repos",
+              "events_url": "https://api.github.com/users/Gwickstrom/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/Gwickstrom/received_events",
+              "type": "User",
+              "site_admin": false,
+              "name": "Gregory K Wickstrom",
+              "company": null,
+              "blog": "",
+              "location": "Bellevue, WA",
+              "email": null,
+              "hireable": null,
+              "bio": "A software developer based in Bellevue, WA.",
+              "public_repos": 38,
+              "public_gists": 1,
+              "followers": 0,
+              "following": 0,
+              "created_at": "2016-11-16T17:49:44Z",
+              "updated_at": "2018-02-27T11:57:31Z"
+            }
+
+            // This is the URL we will be using in our API call: https://api.github.com/users/(your user name). Our goal is to display our name on the page using the GitHub API.
+
+            // Let’s get started with our request. As you may remember from the AJAX/API chapter, we send an API request using the $.get method from jQuery.
+
+            // This is just the JS code that will go in your script.js file and don’t forget to get jQuery first!
+
+
+            // Below, we are asking jQuery to send a GET Ajax request to the https://api.github.com/users/(your user name) URL and we
+            // are passing it a “displayName” function to run as soon as the Github API sends us a response.
+            // $.get("https://api.github.com/users/Gwickstrom", displayName)
+            // // Notice that displayName is a function that takes in 1 parameter (this is the data that comes back from the API)
+            // function displayName(data){
+            //
+            //     console.log(data);
+            // }
+
+            $.get("https://api.github.com/users/Gwickstrom", displayName)
+            function displayName(data) {
+                console.log(data);
+            }
+
+            $(document).ready(function(){
+                var myBOOTON = document.getElementById("buttonForName");
+                $(myBOOTON).click(function(){
+                    alert(data.name);
+                    var element = document.getElementById('head');
+                    element.innerHTML = "URL: " + data.html_url + " Name: " + data.name;
+                });
+            });
+             //OBJECTIVE
+            // Your objective is to create a button that when clicked will send an API request to the GitHub API (see above) and will display your name in a tag below the button.
+
+            // Optional Use promises (either the q library or ES6) instead of callbacks.
+        </script>
+        <div id="copy-toolbar-container" style="cursor: pointer; position: absolute; top: 5px; right: 5px; padding: 0px 3px; background: rgba(224, 224, 224, 0.2); box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 0px 0px; color: rgb(187, 187, 187); border-radius: 0.5em; font-size: 0.8em;"><span id="copy-toolbar">copy</span></div>
+        <h1 id="head"></h1>
+    </body>
+</html>
